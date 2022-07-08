@@ -16,16 +16,18 @@ Bonus:
     Space - O(1)
  */
 
-function areThereDuplicates() {
-    let collection = {};
-    for (let arg in arguments) {
-        collection[arguments[arg]] = collection[arguments[arg]] + 1 || 1;
+function areThereDuplicates(...args) {
+    // Two pointers
+    args.sort((a,b) => a > b);
+    let start = 0;
+    let next = 1;
+    while(next < args.length){
+        if(args[start] === args[next]){
+            return true;
+        }
+        start++;
+        next++;
     }
-
-    for (let key in collection) {
-      if (collection[key] > 1) return true;
-    }
-
     return false;
 }
 

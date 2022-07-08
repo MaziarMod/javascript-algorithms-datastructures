@@ -17,16 +17,7 @@ Bonus:
  */
 
 function areThereDuplicates() {
-    let collection = {};
-    for (let arg in arguments) {
-        collection[arguments[arg]] = collection[arguments[arg]] + 1 || 1;
-    }
-
-    for (let key in collection) {
-      if (collection[key] > 1) return true;
-    }
-
-    return false;
+    return new Set(arguments).size !== arguments.length;
 }
 
 console.log(areThereDuplicates(1, 2, 3)); // false
