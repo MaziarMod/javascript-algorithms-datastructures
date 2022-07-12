@@ -18,7 +18,9 @@ Bonus:
 
 function areThereDuplicates(...args) {
     // Two pointers
-    args.sort((a,b) => a > b);
+
+    args.sort();
+
     let start = 0;
     let next = 1;
     while(next < args.length){
@@ -31,6 +33,6 @@ function areThereDuplicates(...args) {
     return false;
 }
 
-console.log(areThereDuplicates(1, 2, 3)); // false
+console.log(areThereDuplicates(1, 5, 3)); // false
 console.log(areThereDuplicates(1, 2, 2)); // true
 console.log(areThereDuplicates('a', 'b', 'c', 'a')); // true
