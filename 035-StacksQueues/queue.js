@@ -1,0 +1,60 @@
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class Queue {
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.size = 0;
+  }
+
+  enqueue(val) {
+    const newNode = new Node(val);
+    if (!this.first) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+    return ++this.size;
+  }
+
+  dequeue() {
+    if (!this.first) return null;
+    const current = this.first;
+    if (this.first === this.last) {
+      this.last = null;
+    }
+    this.first = this.first.next;
+    this.size--;
+    return current.value;
+  }
+
+  forEach(fn) {
+    let node = this.first;
+    let counter = 0;
+    while (node) {
+      fn(node, counter);
+      node = node.next;
+      counter++;
+    }
+  }
+}
+
+const queue = new Queue();
+
+console.log('------ Create Queue ------');
+queue.enqueue('First');
+queue.enqueue('Second');
+queue.enqueue('Third');
+queue.enqueue('Fourth');
+queue.forEach((node) => console.log(node.value));
+
+console.log('------ Dequeue ------');
+queue.dequeue();
+queue.forEach((node) => console.log(node.value));
