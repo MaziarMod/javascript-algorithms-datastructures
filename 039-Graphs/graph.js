@@ -39,6 +39,50 @@ class Graph {
     })(start);
     return result;
   }
+
+  depthFirstIterative(start) {
+    const stack = [start];
+    const result = [];
+    const visited = {};
+    let currentVertex;
+
+    visited[start] = true;
+
+    while (stack.length) {
+      currentVertex = stack.pop();
+      result.push(currentVertex);
+
+      this.adjacencyList[currentVertex].map((neighbor) => {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          stack.push(neighbor);
+        }
+      });
+    }
+    return result;
+  }
+
+  breathFirst(start) {
+    const queue = [start];
+    const result = [];
+    const visited = {};
+    let currentVertex;
+
+    visited[start] = true;
+
+    while (queue.length) {
+      currentVertex = queue.shift();
+      result.push(currentVertex);
+
+      this.adjacencyList[currentVertex].map((neighbor) => {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          queue.push(neighbor);
+        }
+      });
+    }
+    return result;
+  }
 }
 
 console.log('\n-------- Create a Graph (named: graph) ---------> Done!');
@@ -89,7 +133,7 @@ graph2.addEdge('D', 'E');
 graph2.addEdge('D', 'F');
 graph2.addEdge('E', 'F');
 
-console.log('\n-------- Traverse Graph2 (Recursive)---------> Done!');
+console.log('\n-------- Traverse Graph2 (DFS - Recursive)---------> Done!');
 console.log('-------- The graph is like this ---------');
 console.log('          A');
 console.log('        /   \\');
@@ -99,4 +143,28 @@ console.log('       D --- E');
 console.log('        \\   /');
 console.log('          F');
 
-console.log(graph2.depthFirstRecursive('A'));
+console.log(graph2.depthFirstRecursive('A')); //[ 'A', 'B', 'D', 'E', 'C', 'F' ]
+
+console.log('\n-------- Traverse Graph2 (DFS - Iterative)---------> Done!');
+console.log('-------- The graph is like this ---------');
+console.log('          A');
+console.log('        /   \\');
+console.log('       B     C');
+console.log('       |     |');
+console.log('       D --- E');
+console.log('        \\   /');
+console.log('          F');
+
+console.log(graph2.depthFirstIterative('A')); //[ 'A', 'C', 'E', 'F', 'D', 'B' ]
+
+console.log('\n-------- Traverse Graph2 ( BFS )---------> Done!');
+console.log('-------- The graph is like this ---------');
+console.log('          A');
+console.log('        /   \\');
+console.log('       B     C');
+console.log('       |     |');
+console.log('       D --- E');
+console.log('        \\   /');
+console.log('          F');
+
+console.log(graph2.breathFirst('A')); //[ 'A', 'B', 'C', 'D', 'E', 'F' ]
